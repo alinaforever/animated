@@ -11,11 +11,10 @@ import com.github.alinaforever.easing.Easing
  */
 abstract class Animation<T>(
     private val durationProvider: () -> Float,
-    private val easingProvider: () -> Easing,
+    private val easing: Easing,
     initialState: Boolean
 ) {
     private val duration get() = durationProvider() / 1000f
-    private val easing get() = easingProvider()
 
     /**
      * The factor of this animation.

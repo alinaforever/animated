@@ -12,8 +12,8 @@ import com.github.alinaforever.easing.Easing
  */
 class AnimatedFloat @JvmOverloads constructor(
     durationProvider: () -> Float,
-    easingProvider: () -> Easing,
+    easing: Easing = Easing.Linear,
     initialState: Boolean = false
-) : Animation<Float>(durationProvider, easingProvider, initialState) {
+) : Animation<Float>(durationProvider, easing, initialState) {
     override val value get() = factor
 }

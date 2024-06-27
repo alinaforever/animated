@@ -1,5 +1,6 @@
 import com.github.alinaforever.data.Delta
 import com.github.alinaforever.easing.Easing
+import com.github.alinaforever.type.AnimatedColor
 import com.github.alinaforever.type.AnimatedFloat
 import org.lwjgl.Version
 import org.lwjgl.glfw.Callbacks
@@ -12,6 +13,7 @@ import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11
 import org.lwjgl.system.MemoryStack
 import org.lwjgl.system.MemoryUtil
+import java.awt.Color
 
 class Window {
     // The window handle
@@ -21,8 +23,8 @@ class Window {
     var h = 0f
 
     // Animation will last 240 ms
-    val anim = AnimatedFloat({ 240f }, { Easing.Linear })
-    val anim2 = AnimatedFloat({ 300f }, { Easing.Linear })
+    val anim = AnimatedFloat({ 440f })
+    val anim2 = AnimatedColor({ 440f }, { Color.RED }, { Color.WHITE })
 
     var deltaTime = 0.0
     var lastFrame = 0.0
@@ -121,7 +123,6 @@ class Window {
             nvgBeginFrame(vg, w, h, 1f)
 
             rect(vg, 10f + 180f * anim.value, 10f, 100f, 100f)
-            rect(vg, 10f + 180f * anim2.value, 10f + 190f, 100f, 100f)
 
             nvgEndFrame(vg)
 
@@ -149,7 +150,7 @@ class Window {
 
     private fun rect(vg: Long, x: Float, y: Float, w: Float, h: Float) {
         NVGColor.calloc().use {
-            nvgRGBf(1f, 1f, 1f, it)
+            nvgRGBf(anim2.value.red / 255f, anim2.value.green / 255f, anim2.value.blue / 255f, it)
 
             nvgBeginPath(vg)
             nvgRect(vg, x, y, w, h)
